@@ -11,6 +11,28 @@ A game where you select cards from your deck to perform move that attack your en
 
 -Save progress through cookies
 
+## Challenges  
+-Ordering the events (player turn, enemy turn, win, lose) with appropriate timing
+
+-Animating characters and actions
+
+-Dealing with lots of info
+
+## Hierarchy
+
+```
+Home 
+│
+└───How it Works
+│   
+└───Game
+    |___Level 1
+    │___Level 2
+    │___Level 3
+    │___Level 4
+    │___Level 5
+```
+
 ## Wireframes
 [Home] (https://wireframe.cc/vyeNvA)
 
