@@ -1,22 +1,153 @@
-.App {
-  text-align: center;
+body{
+  margin:0;
 }
 
-.App-logo {
-  height: 40vmin;
+header{
+  display:flex;
+  justify-content: space-between;
+  height:80px;
+  line-height: 80px;
+  background-color: grey;
+  margin:0;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.links{
+  margin:0 5em 0 0
 }
 
-.App-link {
-  color: #09d3ac;
+a{
+  margin: 0 2em 0 0;
+  font-size: 1.5em;
+  text-decoration: none;
+}
+
+.links a{
+  text-decoration: underline;
+}
+
+.title{
+  margin:0 0 0 2em;
+  font-size: 1.5em;
+  color:red;
+}
+
+footer{
+  background-color:black;
+  text-align:center;
+  color:white;
+  height:60px;
+  line-height: 60px;
+}
+
+footer a{
+  color:white;
+  font-size: 1em;
+  text-decoration: underline;;
+}
+
+.home{
+  display:flex;
+  justify-content: space-evenly;
+}
+
+.home img{
+  width:40%;
+}
+
+.about{
+  width:40%;
+  margin:3em 0 0 0;
+}
+
+button{
+  font-size: 2em;
+  margin: 1em 0 0 1em;
+  background-color: red;
+}
+
+.instruction{
+  display:flex;
+  justify-content: space-evenly;
+  margin: 2em 0 .5em 0;
+}
+
+.instruction:first-of-type{
+  margin:4em 0 0 0;
+}
+
+.howTo img{
+  width:30%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.topic{
+  width:50%;
+  border-bottom: 2px solid black;;
+}
+
+.gameWindow{
+  height:550px;
+  width:1000px;
+  margin: 3em auto 3em auto;
+  background-color:grey;
+  position:relative;
+  background-size: 150%;
+  background-position: -300px -200px;
+}
+
+.hero{
+  position:absolute;
+  bottom:20px;
+  left: 20px;
+}
+
+.hero img, .enemy img{
+  margin: 0 0 1em 4em;
+  height:190px;
+}
+
+.enemy{
+  position: absolute;
+  bottom:20px;
+  left: 720px
+}
+
+.health img, .energy img{
+  height:40px;
+  width:40px;
+  margin: auto 0 auto 0;
+}
+
+.health, .energy{
+  display:flex;
+  justify-content: left;
+  height:40px;
+}
+
+progress{
+  margin: auto 0 auto 0;
+  background-color: grey;
+}
+
+
+.health p, .energy p {
+  font-weight: 900;
+  margin:12px 0 0 5px;
+}
+
+.health p{
+  color:red;
+}
+
+.energy p{
+  color:#E1D714;
+}
+
+#healthBar::-webkit-progress-value {
+  background: red;
+}
+
+#energyBar::-webkit-progress-value {
+  background: #E1D714;
 }
