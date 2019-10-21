@@ -5,26 +5,18 @@ import Card from './Card'
 const Cards = (props) => {
   return (
     <div className={props.cardsClass}>
-      <Card
-        shuffledDeck={props.shuffledDeck[0]}
-        playerAttack={props.playerAttack}
-      />
-      <Card
-        shuffledDeck={props.shuffledDeck[1]}
-        playerAttack={props.playerAttack}
-      />
-      <Card
-        shuffledDeck={props.shuffledDeck[2]}
-        playerAttack={props.playerAttack}
-      />
-      <Card
-        shuffledDeck={props.shuffledDeck[3]}
-        playerAttack={props.playerAttack}
-      />
-      <Card
-        shuffledDeck={props.shuffledDeck[4]}
-        playerAttack={props.playerAttack}
-      />
+      {props.shuffledDeck.filter((card, index) => index < 5).map((card, index) => (
+        <React.Fragment key={index}>
+          {card.showing&&
+            <Card
+              shuffledDeck={card}
+              playerAttack={props.playerAttack}
+              index={index}
+            />
+          }
+        </React.Fragment>
+      ))}
+
     </div>
   )
 }

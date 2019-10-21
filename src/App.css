@@ -98,7 +98,7 @@ button{
 
 .hero{
   position:absolute;
-  bottom:80px;
+  top:180px;
   left: 20px;
 }
 
@@ -109,7 +109,7 @@ button{
 
 .enemy{
   position: absolute;
-  bottom:80px;
+  top:95px;
   left: 720px
 }
 
@@ -182,7 +182,7 @@ progress{
   width:75px;
   border:1px solid black;
   margin: auto 0;
-
+  background-color: white;
 }
 
 @keyframes fadeInOpacity {
@@ -235,4 +235,16 @@ progress{
 
 .info{
   margin: .5em 0 0 .5em;
+}
+
+.upcomingAttack, .upcomingBlock{
+  display:flex;
+  margin:0;
+  height:40px
+}
+
+.upcoming img{
+  height:20px;
+  width:20px;
+  margin:0 0 0 4em;
 }

@@ -9,7 +9,7 @@ import Block from './Block'
 const Hero = (props) => {
   return (
     <div className="hero">
-      {props.block !== 0 && <Block block={props.block} />}
+      
           
       <Character img={props.heroImg} />
       <Health
@@ -20,6 +20,7 @@ const Hero = (props) => {
         maxEnergy={props.maxEnergy}
         currentEnergy={props.currentEnergy}
       />
+      {props.block !== 0 && <Block block={props.block} />}
     </div>
   )
 }
