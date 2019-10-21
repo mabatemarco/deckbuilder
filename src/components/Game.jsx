@@ -2,6 +2,7 @@ import React from 'react';
 import Hero from './Hero';
 import Enemy from './Enemy';
 import Cards from './Cards';
+import EndTurn from './EndTurn';
 import Level from '../images/jail.jpeg';
 import HeroImg from '../images/hero.gif';
 import EnemyImg from '../images/enemy.png';
@@ -29,6 +30,7 @@ class Game extends React.Component {
       enemyCurrentEnergy: 3,
       characterBlock: 0,
       enemyBlock: 0,
+      cardsClass:'cards',
       shuffledDeck: [],
       startingDeck: [
         {
@@ -88,7 +90,6 @@ class Game extends React.Component {
           img: Bristle
         },
       ],
-      discardDeck: [],
 
 
     }
@@ -151,6 +152,35 @@ class Game extends React.Component {
     alert('you win')
   }
 
+  endTurn = () => {
+    this.enemyAttack();
+    let characterCurrentEnergy = this.state.characterMaxEnergy
+    this.setState({
+      characterCurrentEnergy
+    })
+    let discardDeck = this.state.shuffledDeck.splice(0, 5)
+    let newshuffledDeck = discardDeck;
+    let currentIndex = discardDeck.length - 1;
+    let temporaryValue;
+    let randomIndex;
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      temporaryValue = newshuffledDeck[currentIndex];
+      newshuffledDeck[currentIndex] = newshuffledDeck[randomIndex];
+      newshuffledDeck[randomIndex] = temporaryValue;
+      currentIndex--;
+    }
+    this.setState(({
+      shuffledDeck:[
+        ...this.state.shuffledDeck, ...newshuffledDeck
+      ]
+    }))
+  }
+
+  enemyAttack = () => {
+    
+  }
+
   render() {
     return (
       <div className="game">
@@ -163,11 +193,13 @@ class Game extends React.Component {
             currentEnergy={this.state.characterCurrentEnergy}
             block={this.state.characterBlock}
           />
-          <Cards
-            discardDeck={this.state.discardDeck}
-            shuffledDeck={this.state.shuffledDeck}
-            playerAttack={this.playerAttack}
-          />
+          {this.state.shuffledDeck.length >= 5 &&
+            <Cards
+            cardsClass={this.state.cardsClass}
+              discardDeck={this.state.discardDeck}
+              shuffledDeck={this.state.shuffledDeck}
+              playerAttack={this.playerAttack}
+            />}
           <Enemy
             maxHealth={this.state.enemyMaxHealth}
             currentHealth={this.state.enemyCurrentHealth}
@@ -176,6 +208,7 @@ class Game extends React.Component {
             currentEnergy={this.state.enemyCurrentEnergy}
             block={this.state.enemyBlock}
           />
+          <EndTurn endTurn={this.endTurn}/>
         </div>
       </div>
     )

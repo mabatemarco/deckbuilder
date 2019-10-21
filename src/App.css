@@ -170,6 +170,11 @@ progress{
   position: absolute;
   display:flex;
   justify-content: space-evenly;
+  opacity: 1;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-duration: 1s;
 }
 
 .card{
@@ -177,11 +182,7 @@ progress{
   width:75px;
   border:1px solid black;
   margin: auto 0;
-  opacity: 1;
-	animation-name: fadeInOpacity;
-	animation-iteration-count: 1;
-	animation-timing-function: ease-in;
-	animation-duration: 1s;
+
 }
 
 @keyframes fadeInOpacity {
