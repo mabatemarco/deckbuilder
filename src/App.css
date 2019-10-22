@@ -133,12 +133,15 @@ button{
 progress{
   margin: auto 0 auto 0;
   background-color: grey;
+  box-shadow: 2px 2px 2px 1px black;
 }
 
 
 .health p, .energy p, .block p {
   font-weight: 900;
   margin:12px 0 0 5px;
+  text-shadow: 2px 2px 2px black;
+
 }
 
 .block p{
@@ -247,4 +250,186 @@ progress{
   height:20px;
   width:20px;
   margin:0 0 0 4em;
+}
+
+.upcoming p{
+  text-shadow: 2px 2px 2px 1px black;
+}
+
+.characterAttack{
+	animation-name: charAttack;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-out;
+	animation-duration: .5s;
+}
+
+@keyframes charAttack {
+	50% {
+		transform:translate(70px,0);
+	}
+	100% {
+		transform:translate(0px,0)
+	}
+}
+
+.enemyAttack{
+	animation-name: enmAttack;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-out;
+	animation-duration: .5s;
+}
+
+@keyframes enmAttack {
+	50% {
+		transform:translate(-70px,0);
+	}
+	100% {
+		transform:translate(0px,0)
+	}
+}
+
+.hurt{
+  animation-name: hurt;
+	animation-iteration-count: 1;
+	animation-duration: .5s;
+}
+
+@keyframes hurt {
+  0% {
+    transform: translate(-1px, 0);
+  }
+  
+  25% {
+    transform: translate(2px, 0);
+  }
+
+  50% {
+    transform: translate(-4px, 0);
+  }
+
+  75% {
+    transform: translate(2px, 0);
+  }
+  100% {
+    transform: translate(-1px, 0);
+  }
+}
+
+.hero .explosion{
+  position:absolute;
+  top: -30px;
+  left:-40px;
+}
+
+.enemy .explosion{
+  position:absolute;
+  top:50px;
+  left:-60px;
+}
+
+.explosion{
+  height:50px;
+  width:150px;
+  animation-name: explosion;
+	animation-iteration-count: 1;
+	animation-duration: .5s;
+}
+
+@keyframes explosion {
+  0%{
+    opacity:0
+  }
+	100% {
+    opacity:1;
+    height:200px;
+    width:200px;
+	}
+}
+
+.displayBlocked img, .displayHurt img{
+  height:30px;
+  width:30px;
+  margin:0;
+}
+
+.displayBlocked, .displayHurt{
+  display:flex;
+  margin:0;
+}
+
+
+
+@keyframes rightHit{
+  100%{
+    transform: translate(30px, 60px);
+  }
+}
+
+
+
+@keyframes leftHit{
+  100%{
+    transform: translate(-30px, 60px);
+  }
+}
+
+.displayBlocked h2, .displayHurt h2{
+  margin:0;
+}
+
+.enemy .displayBlocked{
+  position:absolute;
+  top:130px;
+  left:150px;
+  animation-name: rightHit;
+	animation-iteration-count: 1;
+	animation-duration: .5s;
+}
+
+.enemy .displayHurt{
+  position:absolute;
+  top:130px;
+  left:20px;
+  animation-name: leftHit;
+	animation-iteration-count: 1;
+	animation-duration: .5s;
+}
+
+.hero .displayBlocked{
+  position:absolute;
+  top:30px;
+  left:20px;
+  animation-name: leftHit;
+	animation-iteration-count: 1;
+	animation-duration: .5s;
+}
+
+.hero .displayHurt{
+  position:absolute;
+  top:30px;
+  left:180px;
+  animation-name: rightHit;
+	animation-iteration-count: 1;
+	animation-duration: .5s;
+}
+
+.endTurn{
+  border:1px solid black;
+  box-shadow: 1px 1px 2px 1px black;
+}
+
+.loseScreen{
+  border:3px solid black;
+  height: 500px;
+  position:absolute;
+  text-align:center;
+  background: white;
+  width:800px;
+  top:25px;
+  left: 100px;
+  z-index: 2;
+}
+
+.loseScreen h1{
+  margin: 3em 0 5em 0;
 }

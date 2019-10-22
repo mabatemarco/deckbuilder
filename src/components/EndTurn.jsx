@@ -2,7 +2,7 @@ import React from 'react';
 
 const EndTurn = (props) => {
   return (
-    <button onClick={props.endTurn}>End Turn</button>
+    <button className='endTurn' onClick={props.endTurn}>End Turn</button>
   )
 }
 
