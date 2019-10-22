@@ -1,7 +1,6 @@
 import React from 'react';
 import Character from './Character';
 import Health from './Health';
-import Energy from './Energy';
 import Block from './Block';
 import Upcoming from './Upcoming'
 import DisplayBlocked from'./DisplayBlocked'

@@ -2,6 +2,7 @@ import React from 'react';
 import Energy from '../images/energy.png';
 import Block from '../images/block.png';
 import Attack from '../images/attack.png';
+import Heart from '../images/heart.png';
 
 const Card = (props) => {
   return (
@@ -10,6 +11,7 @@ const Card = (props) => {
       data-attack={props.shuffledDeck.attack}
       data-block={props.shuffledDeck.block}
       data-energy={props.shuffledDeck.cost}
+      data-heal={props.shuffledDeck.heal}
     >
 
       <div className="cardHeader">
@@ -23,6 +25,7 @@ const Card = (props) => {
         }
 
         {props.shuffledDeck.block !== 0 && <p><img className="icon" src={Block} alt="" /> {props.shuffledDeck.block}</p>}
+        {props.shuffledDeck.heal !== 0 && <p><img className="icon" src={Heart} alt="" /> {props.shuffledDeck.heal}</p>}
       </div>
 
     </div >

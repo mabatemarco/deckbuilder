@@ -418,7 +418,7 @@ progress{
   box-shadow: 1px 1px 2px 1px black;
 }
 
-.loseScreen{
+.loseScreen, .winScreen, .bigWin{
   border:3px solid black;
   height: 500px;
   position:absolute;
@@ -433,3 +433,10 @@ progress{
 .loseScreen h1{
   margin: 3em 0 5em 0;
 }
+
+.upgrades{
+  display:flex;
+  margin:0 auto;
+  justify-content: center;;
+}
+
