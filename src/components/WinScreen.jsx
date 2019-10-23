@@ -17,7 +17,7 @@ const WinScreen = (props) => {
 
             <div className="cardHeader">
               <h2>{card.name}</h2>
-              <h3><img src={Energy} alt="" />{card.cost}</h3>
+              
             </div>
 
             <img src={card.img} alt="" />
@@ -29,6 +29,7 @@ const WinScreen = (props) => {
 
               {card.heal !== 0 && <p><img className="icon" src={Heart} alt="" /> {card.heal}</p>
               }
+              <h3 id="energyIcon"><img src={Energy} className="icon" alt="" />{card.cost}</h3>
             </div>
           </div >
 

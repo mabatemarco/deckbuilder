@@ -9,6 +9,8 @@ import BigWin from './BigWin'
 import Level from '../images/jail.jpeg';
 import HeroImg from '../images/hero.gif';
 import EnemyImg from '../images/enemy.png';
+import EnemyImg2 from '../images/enemy2.png';
+import EnemyImg3 from '../images/enemy3.png';
 import { startingDeck, upgrade1, upgrade2 } from '../resources/Deck'
 
 
@@ -22,6 +24,7 @@ let style = {
 class Game extends React.Component {
 
   defaultState = {
+    enemyImg: [EnemyImg,EnemyImg2,EnemyImg3],
     level: 1,
     lost: false,
     newGame: false,
@@ -77,8 +80,6 @@ class Game extends React.Component {
   }
 
   setUp = () => {
-    let enemyUpcomingAttack = Math.floor(Math.random() * 12 * this.state.enemyModifier) + 4
-    let enemyUpcomingBlock = Math.floor(Math.random() * 8 * this.state.enemyModifier)
     let shuffledDeck = this.state.startingDeck;
     let currentIndex = this.state.startingDeck.length - 1;
     let temporaryValue;
@@ -92,8 +93,8 @@ class Game extends React.Component {
     }
     this.setState({
       shuffledDeck,
-      enemyUpcomingAttack,
-      enemyUpcomingBlock
+      enemyUpcomingAttack:Math.floor(Math.random() * 12 * this.state.enemyModifier) + 4,
+      enemyUpcomingBlock:Math.floor(Math.random() * 8)
     })
   }
 
@@ -119,7 +120,7 @@ class Game extends React.Component {
     if (e.currentTarget.dataset.attack > this.state.enemyBlock) {
       enemyDisplayHurt = e.currentTarget.dataset.attack - this.state.enemyBlock
     }
-    if (e.currentTarget.dataset.attack > 0 && this.state.characterCurrentEnergy > 0) {
+    if (e.currentTarget.dataset.attack > 0 && this.state.characterCurrentEnergy > e.currentTarget.dataset.energy) {
       this.setState(prevState => ({
         characterClass: 'characterAttack',
         enemyClass: 'hurt',
@@ -200,7 +201,9 @@ class Game extends React.Component {
       enemyMaxHealth: prevState.enemyMaxHealth * 2.5,
       upgrades: upgrade2,
       characterCurrentEnergy: 3,
-      enemyModifier: prevState.enemyModifier + .6
+      enemyModifier: prevState.enemyModifier + .6,
+      enemyUpcomingAttack: Math.floor(Math.random() * 12 * this.state.enemyModifier) + 4,
+      enemyUpcomingBlock: Math.floor(Math.random() * 8)
     }))
     this.shuffleUp()
   }
@@ -299,11 +302,9 @@ class Game extends React.Component {
     this.setState({
       characterBlock
     })
-    let enemyUpcomingAttack = Math.floor(Math.random() * 12 * this.state.enemyModifier) + 4
-    let enemyUpcomingBlock = Math.floor(Math.random() * 8 * this.state.enemyModifier)
     this.setState({
-      enemyUpcomingBlock,
-      enemyUpcomingAttack,
+      enemyUpcomingBlock:Math.floor(Math.random() * 8),
+      enemyUpcomingAttack:Math.floor(Math.random() * 12 * this.state.enemyModifier) + 4,
       characterBlock: 0
     })
   }
@@ -329,8 +330,8 @@ class Game extends React.Component {
               newGame={this.newGame}
             />}
           {this.state.won && this.state.level === 3 &&
-            <BigWin 
-            newGame={this.newGame}
+            <BigWin
+              newGame={this.newGame}
             />
           }
           {this.state.won && this.state.level < 3 &&
@@ -350,7 +351,7 @@ class Game extends React.Component {
             blocked={this.state.enemyDisplayBlock}
             maxHealth={this.state.enemyMaxHealth}
             currentHealth={this.state.enemyCurrentHealth}
-            enemyImg={EnemyImg}
+            enemyImg={this.state.enemyImg[this.state.level-1]}
             maxEnergy={this.state.enemyMaxEnergy}
             currentEnergy={this.state.enemyCurrentEnergy}
             block={this.state.enemyBlock}

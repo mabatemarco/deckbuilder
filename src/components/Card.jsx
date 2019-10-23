@@ -16,7 +16,6 @@ const Card = (props) => {
 
       <div className="cardHeader">
         <h2>{props.shuffledDeck.name}</h2>
-        <h3><img src={Energy} alt="" />{props.shuffledDeck.cost}</h3>
       </div>
 
       <img src={props.shuffledDeck.img} alt="" />
@@ -26,6 +25,8 @@ const Card = (props) => {
 
         {props.shuffledDeck.block !== 0 && <p><img className="icon" src={Block} alt="" /> {props.shuffledDeck.block}</p>}
         {props.shuffledDeck.heal !== 0 && <p><img className="icon" src={Heart} alt="" /> {props.shuffledDeck.heal}</p>}
+        <h3 id='energyIcon'><img src={Energy} className="icon" alt="" />{props.shuffledDeck.cost}</h3>
+
       </div>
 
     </div >
