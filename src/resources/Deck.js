@@ -61,7 +61,7 @@ export const startingDeck = [
   {
     name: 'Bristle',
     attack: 4,
-    block: 4,
+    block: 2,
     heal:0,
     cost: 1,
     img: Bristle,

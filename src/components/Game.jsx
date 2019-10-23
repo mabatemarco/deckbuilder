@@ -6,25 +6,22 @@ import EndTurn from './EndTurn';
 import LoseScreen from './LoseScreen'
 import WinScreen from './WinScreen'
 import BigWin from './BigWin'
-import Level from '../images/jail.jpeg';
+import NotEnough from './NotEnough'
 import HeroImg from '../images/hero.gif';
 import EnemyImg from '../images/enemy.png';
 import EnemyImg2 from '../images/enemy2.png';
 import EnemyImg3 from '../images/enemy3.png';
 import { startingDeck, upgrade1, upgrade2 } from '../resources/Deck'
-
-
-
-let style = {
-  backgroundImage: `url(${Level})`
-}
-
-
+import { GetId } from '../services/api'
+import { getGif } from '../services/api-helper'
 
 class Game extends React.Component {
 
   defaultState = {
-    enemyImg: [EnemyImg,EnemyImg2,EnemyImg3],
+    gif:'',
+    enemyImg: [EnemyImg, EnemyImg2, EnemyImg3],
+    audio: '',
+    notEnough: false,
     level: 1,
     lost: false,
     newGame: false,
@@ -32,8 +29,8 @@ class Game extends React.Component {
     upgrades: [],
     characterMaxHealth: 50,
     characterCurrentHealth: 50,
-    enemyMaxHealth: 20,
-    enemyCurrentHealth: 20,
+    enemyMaxHealth: 1,
+    enemyCurrentHealth: 1,
     characterMaxEnergy: 3,
     characterCurrentEnergy: 3,
     characterBlock: 0,
@@ -56,10 +53,21 @@ class Game extends React.Component {
     this.state = this.defaultState
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.setUp()
     this.setState({
       upgrades: upgrade1
+    })
+    let response = await GetId()
+    let audioId = response.data.results[0].url
+    let audio = new Audio(audioId)
+    this.setState({
+      audio
+    })
+    const gif = await getGif();
+    console.log(gif)
+    this.setState({
+      gif
     })
   }
 
@@ -93,8 +101,8 @@ class Game extends React.Component {
     }
     this.setState({
       shuffledDeck,
-      enemyUpcomingAttack:Math.floor(Math.random() * 12 * this.state.enemyModifier) + 4,
-      enemyUpcomingBlock:Math.floor(Math.random() * 8)
+      enemyUpcomingAttack: Math.floor(Math.random() * 12) + 4,
+      enemyUpcomingBlock: Math.floor(Math.random() * 8)
     })
   }
 
@@ -105,6 +113,60 @@ class Game extends React.Component {
         showing: false
       } : card)
     }))
+  }
+
+  addCard = (cardIndex) => {
+    if (this.state.upgrades.length > 1) {
+      this.setState(prevState => ({
+        shuffledDeck: [...prevState.shuffledDeck, ...prevState.upgrades.filter(card => card.index === cardIndex)],
+        upgrades: prevState.upgrades.filter(card => card.index !== cardIndex)
+      }))
+    }
+  }
+
+  nextRound = (prevState) => {
+    this.setState(prevState => ({
+      level: prevState.level + 1,
+      won: false,
+      enemyCurrentHealth: prevState.enemyMaxHealth * 2.5,
+      enemyMaxHealth: prevState.enemyMaxHealth * 2.5,
+      upgrades: upgrade2,
+      characterCurrentEnergy: 3,
+      enemyModifier: prevState.enemyModifier + .6,
+      enemyUpcomingAttack: Math.floor(Math.random() * 12 * this.state.enemyModifier) + 4,
+      enemyUpcomingBlock: Math.floor(Math.random() * 8)
+    }))
+    this.shuffleUp()
+  }
+
+  shuffleUp = () => {
+    let discardDeck = this.state.shuffledDeck.slice(0, 6)
+    let restOfDeck = this.state.shuffledDeck.slice(6)
+    let newShuffledDeck = discardDeck;
+    let currentIndex = discardDeck.length - 1;
+    let temporaryValue;
+    let randomIndex;
+    newShuffledDeck.map(card =>
+      card.showing = true
+    )
+    while (currentIndex !== 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      temporaryValue = newShuffledDeck[currentIndex];
+      newShuffledDeck[currentIndex] = newShuffledDeck[randomIndex];
+      newShuffledDeck[randomIndex] = temporaryValue;
+      currentIndex--;
+    }
+    this.setState(({
+      shuffledDeck: [
+        ...restOfDeck, ...newShuffledDeck
+      ]
+    }))
+  }
+
+  lose = () => {
+    this.setState({
+      lost: true
+    })
   }
 
   playerAttack = (e, index) => {
@@ -120,7 +182,7 @@ class Game extends React.Component {
     if (e.currentTarget.dataset.attack > this.state.enemyBlock) {
       enemyDisplayHurt = e.currentTarget.dataset.attack - this.state.enemyBlock
     }
-    if (e.currentTarget.dataset.attack > 0 && this.state.characterCurrentEnergy > e.currentTarget.dataset.energy) {
+    if (e.currentTarget.dataset.attack > 0 && this.state.characterCurrentEnergy >= e.currentTarget.dataset.energy) {
       this.setState(prevState => ({
         characterClass: 'characterAttack',
         enemyClass: 'hurt',
@@ -181,61 +243,16 @@ class Game extends React.Component {
       this.setState({
         characterCurrentHealth
       })
+    } else {
+      this.setState({
+        notEnough: true
+      })
+      setTimeout(() => {
+        this.setState({
+          notEnough: false
+        });
+      }, 500)
     }
-  }
-
-  addCard = (cardIndex) => {
-    if (this.state.upgrades.length > 1) {
-      this.setState(prevState => ({
-        shuffledDeck: [...prevState.shuffledDeck, ...prevState.upgrades.filter(card => card.index === cardIndex)],
-        upgrades: prevState.upgrades.filter(card => card.index !== cardIndex)
-      }))
-    }
-  }
-
-  nextRound = (prevState) => {
-    this.setState(prevState => ({
-      level: prevState.level + 1,
-      won: false,
-      enemyCurrentHealth: prevState.enemyMaxHealth * 2.5,
-      enemyMaxHealth: prevState.enemyMaxHealth * 2.5,
-      upgrades: upgrade2,
-      characterCurrentEnergy: 3,
-      enemyModifier: prevState.enemyModifier + .6,
-      enemyUpcomingAttack: Math.floor(Math.random() * 12 * this.state.enemyModifier) + 4,
-      enemyUpcomingBlock: Math.floor(Math.random() * 8)
-    }))
-    this.shuffleUp()
-  }
-
-  shuffleUp = () => {
-    let discardDeck = this.state.shuffledDeck.slice(0, 6)
-    let restOfDeck = this.state.shuffledDeck.slice(6)
-    let newShuffledDeck = discardDeck;
-    let currentIndex = discardDeck.length - 1;
-    let temporaryValue;
-    let randomIndex;
-    newShuffledDeck.map(card =>
-      card.showing = true
-    )
-    while (currentIndex !== 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      temporaryValue = newShuffledDeck[currentIndex];
-      newShuffledDeck[currentIndex] = newShuffledDeck[randomIndex];
-      newShuffledDeck[randomIndex] = temporaryValue;
-      currentIndex--;
-    }
-    this.setState(({
-      shuffledDeck: [
-        ...restOfDeck, ...newShuffledDeck
-      ]
-    }))
-  }
-
-  lose = () => {
-    this.setState({
-      lost: true
-    })
   }
 
   endTurn = () => {
@@ -303,8 +320,8 @@ class Game extends React.Component {
       characterBlock
     })
     this.setState({
-      enemyUpcomingBlock:Math.floor(Math.random() * 8),
-      enemyUpcomingAttack:Math.floor(Math.random() * 12 * this.state.enemyModifier) + 4,
+      enemyUpcomingBlock: Math.floor(Math.random() * 8),
+      enemyUpcomingAttack: Math.floor(Math.random() * 12 * this.state.enemyModifier) + 4,
       characterBlock: 0
     })
   }
@@ -313,7 +330,7 @@ class Game extends React.Component {
   render() {
     return (
       <div className="game">
-        <div className="gameWindow" style={style}>
+        <div className="gameWindow">
           <Hero
             hurt={this.state.characterDisplayHurt}
             blocked={this.state.characterDisplayBlock}
@@ -329,9 +346,11 @@ class Game extends React.Component {
             && <LoseScreen
               newGame={this.newGame}
             />}
+          {this.state.notEnough && <NotEnough notEnough={this.state.notEnough} />}
           {this.state.won && this.state.level === 3 &&
             <BigWin
-              newGame={this.newGame}
+            newGame={this.newGame}
+            gif={this.state.gif}
             />
           }
           {this.state.won && this.state.level < 3 &&
@@ -351,7 +370,7 @@ class Game extends React.Component {
             blocked={this.state.enemyDisplayBlock}
             maxHealth={this.state.enemyMaxHealth}
             currentHealth={this.state.enemyCurrentHealth}
-            enemyImg={this.state.enemyImg[this.state.level-1]}
+            enemyImg={this.state.enemyImg[this.state.level - 1]}
             maxEnergy={this.state.enemyMaxEnergy}
             currentEnergy={this.state.enemyCurrentEnergy}
             block={this.state.enemyBlock}

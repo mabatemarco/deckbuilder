@@ -12,7 +12,7 @@ header{
 }
 
 .links{
-  margin:0 5em 0 0
+  margin:0 5em 0 0;
 }
 
 a{
@@ -23,6 +23,7 @@ a{
 
 .links a{
   text-decoration: underline;
+  color:blue;
 }
 
 .title{
@@ -37,26 +38,40 @@ footer{
   color:white;
   height:60px;
   line-height: 60px;
+  margin:0;
 }
 
 footer a{
   color:white;
   font-size: 1em;
-  text-decoration: underline;;
+  text-decoration: underline;
+  margin:0;
+}
+
+footer p{
+  margin:0;
 }
 
 .home{
   display:flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  background-image: url('./images/background.jpg');
+  background-size: cover;
 }
 
 .home img{
   width:40%;
+  height:600px;
+  object-fit: cover;
 }
 
 .about{
-  width:40%;
-  margin:3em 0 0 0;
+  width:30%;
+  margin:5em 18em 0 0;
+}
+
+.about p{
+  font-size: 1.2em;
 }
 
 button{
@@ -72,7 +87,7 @@ button{
 }
 
 .instruction:first-of-type{
-  margin:4em 0 0 0;
+  margin:2em 0 0 0;
 }
 
 .howTo img{
@@ -86,12 +101,17 @@ button{
   border-bottom: 2px solid black;;
 }
 
+.topic p{
+  font-size: 1.2em;
+}
+
 .gameWindow{
   height:550px;
   width:1000px;
   margin: 3em auto 3em auto;
   background-color:grey;
   position:relative;
+  background-image: url('images/jail.jpeg');
   background-size: 150%;
   background-position: -300px -260px;
 }
@@ -458,12 +478,19 @@ progress{
   }
 }
 
-.loseScreen button, .winScreen button, .bigWin button{
+.winScreen button{
   margin:2em auto;
 }
 
-.loseScreen h1{
-  margin: 3em 0 5em 0;
+.bigWin button, .loseScreen button{
+  margin:1em auto;
+}
+
+.bigWin img, .loseScreen img{
+  display: block;
+  margin:0 auto;
+  height:300px;
+  box-shadow: 3px 3px 2px 1px;
 }
 
 .upgrades{
@@ -475,3 +502,21 @@ progress{
 .upgrades .card{
   margin:0 1em 0 0;
 }
+
+.notEnough{
+  color:#00FFFF;
+  position:absolute;
+  top: 300px;
+  left:390px;
+  animation-name: notEnough;
+	animation-iteration-count: 1;
+	animation-duration: .5s;
+}
+
+@keyframes notEnough{
+  100%{
+    transform: translate(0,-20px);
+    opacity:.3;
+  }
+}
+
