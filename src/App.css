@@ -213,6 +213,12 @@ progress{
   background-image: url('images/background.jpg');
 }
 
+.card:hover{
+  height:180px;
+  width:100px;
+  box-shadow: 3px 3px 2px 1px black;
+}
+
 #energyIcon{
   position:absolute;
   bottom: 2px;
