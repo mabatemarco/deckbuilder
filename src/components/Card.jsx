@@ -12,6 +12,7 @@ const Card = (props) => {
       data-block={props.shuffledDeck.block}
       data-energy={props.shuffledDeck.cost}
       data-heal={props.shuffledDeck.heal}
+      data-buff={props.shuffledDeck.buff}
     >
 
       <div className="cardHeader">
@@ -20,11 +21,14 @@ const Card = (props) => {
 
       <img src={props.shuffledDeck.img} alt="" />
       <div className="info">
-        {props.shuffledDeck.attack !== 0 && <p><img className="icon" src={Attack} alt="" /> {props.shuffledDeck.attack}</p>
-        }
+        {props.shuffledDeck.attack !== 0 && <p><img className="icon" src={Attack} alt="" /> {props.shuffledDeck.attack}</p>}
 
         {props.shuffledDeck.block !== 0 && <p><img className="icon" src={Block} alt="" /> {props.shuffledDeck.block}</p>}
+
         {props.shuffledDeck.heal !== 0 && <p><img className="icon" src={Heart} alt="" /> {props.shuffledDeck.heal}</p>}
+
+        {props.shuffledDeck.buff && <p id="buff">{props.shuffledDeck.desc}</p>}
+
         <h3 id='energyIcon'><img src={Energy} className="icon" alt="" />{props.shuffledDeck.cost}</h3>
 
       </div>

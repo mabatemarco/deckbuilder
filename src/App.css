@@ -229,6 +229,28 @@ progress{
   background-image: url('images/background.jpg');
 }
 
+#buff{
+  font-size: .8em;
+}
+
+.buffIcon{
+  position:absolute;
+  top:-50px;
+  left:25px;
+  display:flex;
+}
+
+.buffIcon img{
+  height:30px;
+  width:30px;
+}
+
+.buffIcon p{
+  font-weight: 900;
+  font-size: 1.2em;
+}
+
+
 .card:hover{
   height:180px;
   width:100px;

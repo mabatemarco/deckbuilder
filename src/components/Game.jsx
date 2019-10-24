@@ -18,9 +18,10 @@ import { getGif } from '../services/api-helper'
 class Game extends React.Component {
 
   defaultState = {
-    gif:'',
+    playerModifier: 1,
+    buffDuration: 0,
+    gif: '',
     enemyImg: [EnemyImg, EnemyImg2, EnemyImg3],
-    audio: '',
     notEnough: false,
     level: 1,
     lost: false,
@@ -125,7 +126,7 @@ class Game extends React.Component {
       enemyModifier: prevState.enemyModifier + .6,
       enemyUpcomingAttack: Math.floor(Math.random() * 12 * this.state.enemyModifier) + 4,
       enemyUpcomingBlock: Math.floor(Math.random() * 8),
-      enemyClass:"enter"
+      enemyClass: "enter"
     }))
     this.shuffleUp()
   }
@@ -161,40 +162,19 @@ class Game extends React.Component {
   }
 
   playerAttack = (e, index) => {
-    let enemyDisplayBlock
-    let enemyDisplayHurt
-    if (this.state.enemyBlock > 0) {
-      if (e.currentTarget.dataset.attack > this.state.enemyBlock) {
-        enemyDisplayBlock = this.state.enemyBlock
-      } else {
-        enemyDisplayBlock = e.currentTarget.dataset.attack
-      }
-    }
-    if (e.currentTarget.dataset.attack > this.state.enemyBlock) {
-      enemyDisplayHurt = e.currentTarget.dataset.attack - this.state.enemyBlock
-    }
-    if (e.currentTarget.dataset.attack > 0 && this.state.characterCurrentEnergy >= e.currentTarget.dataset.energy) {
-      this.setState(prevState => ({
-        characterClass: 'characterAttack',
-        enemyClass: 'hurt',
-        enemyDisplayBlock,
-        enemyDisplayHurt
-      }))
-      setTimeout(() => {
-        this.setState({
-          characterClass: '',
-          enemyClass: '',
-          enemyDisplayBlock: 0,
-          enemyDisplayHurt: 0
-        });
-      }, 500)
-    }
     let characterCurrentEnergy = this.state.characterCurrentEnergy - parseInt(e.currentTarget.dataset.energy)
     if (characterCurrentEnergy >= 0) {
       this.flipCard(index)
       this.setState({
         characterCurrentEnergy
       })
+
+      if (e.currentTarget.dataset.buff === "true") {
+        this.setState(prevState => ({
+          playerModifier: 1.3,
+          buffDuration: prevState.buffDuration + 3
+        }))
+      }
 
       let characterBlock = this.state.characterBlock + parseInt(e.currentTarget.dataset.block)
       this.setState({
@@ -203,10 +183,10 @@ class Game extends React.Component {
 
 
       let enemyCurrentHealth
-      if (this.state.enemyBlock >= e.currentTarget.dataset.attack) {
+      if (this.state.enemyBlock >= Math.floor(e.currentTarget.dataset.attack * this.state.playerModifier)) {
         enemyCurrentHealth = this.state.enemyCurrentHealth
       } else {
-        enemyCurrentHealth = this.state.enemyCurrentHealth - parseInt(e.currentTarget.dataset.attack) + this.state.enemyBlock
+        enemyCurrentHealth = this.state.enemyCurrentHealth - parseInt(Math.floor(e.currentTarget.dataset.attack * this.state.playerModifier)) + this.state.enemyBlock
       }
       if (enemyCurrentHealth > 0) {
         this.setState({
@@ -219,7 +199,7 @@ class Game extends React.Component {
         })
       }
 
-      let enemyBlock = this.state.enemyBlock - parseInt(e.currentTarget.dataset.attack)
+      let enemyBlock = this.state.enemyBlock - parseInt(Math.floor(e.currentTarget.dataset.attack * this.state.playerModifier))
       if (enemyBlock < 0) {
         enemyBlock = 0
       }
@@ -244,9 +224,48 @@ class Game extends React.Component {
         });
       }, 500)
     }
+    let enemyDisplayBlock
+    let enemyDisplayHurt
+    if (this.state.enemyBlock > 0) {
+      if (Math.floor(e.currentTarget.dataset.attack * this.state.playerModifier) > this.state.enemyBlock) {
+        enemyDisplayBlock = this.state.enemyBlock
+      } else {
+        enemyDisplayBlock = Math.floor(e.currentTarget.dataset.attack * this.state.playerModifier)
+      }
+    }
+    if (Math.floor(e.currentTarget.dataset.attack * this.state.playerModifier) > this.state.enemyBlock) {
+      enemyDisplayHurt = Math.floor(e.currentTarget.dataset.attack * this.state.playerModifier) - this.state.enemyBlock
+    }
+    if (Math.floor(e.currentTarget.dataset.attack * this.state.playerModifier) > 0 && this.state.characterCurrentEnergy >= e.currentTarget.dataset.energy) {
+      this.setState(prevState => ({
+        characterClass: 'characterAttack',
+        enemyClass: 'hurt',
+        enemyDisplayBlock,
+        enemyDisplayHurt
+      }))
+      setTimeout(() => {
+        this.setState({
+          characterClass: '',
+          enemyClass: '',
+          enemyDisplayBlock: 0,
+          enemyDisplayHurt: 0
+        });
+      }, 500)
+    }
   }
 
   endTurn = () => {
+    if (this.state.buffDuration - 1 > 0) {
+      this.setState(prevState => ({
+        buffDuration: prevState.buffDuration - 1
+      }))
+    } else if (this.state.buffDuration - 1 === 0) {
+      this.setState(prevState => ({
+        buffDuration: prevState.buffDuration - 1,
+        playerModifier: 1
+      }))
+    }
+
     let characterDisplayBlock
     let characterDisplayHurt
     if (this.state.characterBlock > 0) {
@@ -323,6 +342,7 @@ class Game extends React.Component {
       <div className="game">
         <div className="gameWindow">
           <Hero
+            buff={this.state.buffDuration}
             hurt={this.state.characterDisplayHurt}
             blocked={this.state.characterDisplayBlock}
             maxHealth={this.state.characterMaxHealth}
@@ -340,8 +360,8 @@ class Game extends React.Component {
           {this.state.notEnough && <NotEnough notEnough={this.state.notEnough} />}
           {this.state.won && this.state.level === 3 &&
             <BigWin
-            newGame={this.newGame}
-            gif={this.state.gif}
+              newGame={this.newGame}
+              gif={this.state.gif}
             />
           }
           {this.state.won && this.state.level < 3 &&

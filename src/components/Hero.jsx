@@ -4,7 +4,8 @@ import Health from './Health';
 import Energy from './Energy';
 import Block from './Block'
 import DisplayBlocked from'./DisplayBlocked'
-import DisplayHurt from'./DisplayHurt'
+import DisplayHurt from './DisplayHurt'
+import Buff from './buff'
 import Explosion from '../images/explosion.png'
 
 
@@ -15,7 +16,8 @@ const Hero = (props) => {
     <div className="hero">
       
       {props.hurt > 0 && <DisplayHurt hurt={props.hurt} />}
-      {props.blocked > 0 && <DisplayBlocked blocked={props.blocked}/>}
+      {props.blocked > 0 && <DisplayBlocked blocked={props.blocked} />}
+      {props.buff>0&&<Buff buff={props.buff}/>}
 
       <Character
         img={props.heroImg}
