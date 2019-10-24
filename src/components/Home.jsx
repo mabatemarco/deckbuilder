@@ -9,7 +9,7 @@ const Home = () => {
       <div className="about">
         <h1>deckbuilder</h1>
         <p>Choose your cards wisely! Discover hundreds of cards to add to your deck with each attempt at climbing the Spire. Select cards that work together to efficiently dispatch foes and reach the top. <br /><br />
-        This is the description to <strong>Slay the Spire</strong>, the tremendously fun and successful game that <strong>Deckbuilder</strong> is a shameless and pale imitation of!  Also I stole all of the characters and setting from <strong>Dead Cells</strong></p>
+        This is the description to <strong>Slay the Spire</strong>, the tremendously fun and successful game that <strong>Deckbuilder</strong> is a pale and shameless imitation of!  Also I stole all of the characters and setting from <strong>Dead Cells</strong></p>
         <Link to='play'><button>Play Game</button></Link>
       </div>
     </div>
