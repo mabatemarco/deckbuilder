@@ -26,11 +26,11 @@ class Game extends React.Component {
     lost: false,
     newGame: false,
     won: false,
-    upgrades: [],
+    upgrades: upgrade1,
     characterMaxHealth: 50,
     characterCurrentHealth: 50,
-    enemyMaxHealth: 1,
-    enemyCurrentHealth: 1,
+    enemyMaxHealth: 20,
+    enemyCurrentHealth: 20,
     characterMaxEnergy: 3,
     characterCurrentEnergy: 3,
     characterBlock: 0,
@@ -40,7 +40,7 @@ class Game extends React.Component {
     shuffledDeck: [],
     startingDeck: startingDeck,
     characterClass: '',
-    enemyClass: '',
+    enemyClass: 'enter',
     enemyDisplayBlock: 0,
     enemyDisplayHurt: 0,
     characterDisplayBlock: 0,
@@ -55,17 +55,7 @@ class Game extends React.Component {
 
   async componentDidMount() {
     this.setUp()
-    this.setState({
-      upgrades: upgrade1
-    })
-    let response = await GetId()
-    let audioId = response.data.results[0].url
-    let audio = new Audio(audioId)
-    this.setState({
-      audio
-    })
     const gif = await getGif();
-    console.log(gif)
     this.setState({
       gif
     })
@@ -134,7 +124,8 @@ class Game extends React.Component {
       characterCurrentEnergy: 3,
       enemyModifier: prevState.enemyModifier + .6,
       enemyUpcomingAttack: Math.floor(Math.random() * 12 * this.state.enemyModifier) + 4,
-      enemyUpcomingBlock: Math.floor(Math.random() * 8)
+      enemyUpcomingBlock: Math.floor(Math.random() * 8),
+      enemyClass:"enter"
     }))
     this.shuffleUp()
   }
