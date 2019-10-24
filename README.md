@@ -1,41 +1,43 @@
 # Deckbuilder Game
-A card-based combat game where strategy, luck, and skill are needed.  Choose cards from your deck to carry out combat.
+A card-based combat game where strategy, luck, and skill are needed.  Choose cards from your deck to carry out combat. Like the Game *Slay the Spire*, but worse.
 
-## MVP 
-A game where you select cards from your deck to perform move that attack your enemy, heal yourself, or perform various buffs and effects.
+## Future Goals
+-Upgrades to character
 
-## Post-MVP
--Multiple levels and ending.
+-More Cards with effects other than attack, defend, heal.
 
--Upgrades to your character and deck.
+-More enemies with additional effects.
 
--Save progress through cookies
+-Clean up and refactor code (Almost all functions are stored in Game component).
 
-## Challenges  
+-Reduce size of img files, initial loading is very long.
+
+-More animations.
+
+-Better shuffling algorithm.
+
+-Improve the layout of status icons to make them more noticable and intuitive.
+
+##Challenges Faced
 -Ordering the events (player turn, enemy turn, win, lose) with appropriate timing
 
 -Animating characters and actions
 
 -Dealing with lots of info
 
+-Creating Content
+
+-Finding and editing img files
+
 ## Hierarchy
 
 ```
 Home 
 │
-└───How it Works
+└──How it Works
 │   
-└───Game
-    |___Level 1
-    │___Level 2
-    │___Level 3
-    │___Level 4
-    │___Level 5
+|__Game
+  |__Character
+  |__Cards
+  |__Enemy
 ```
-
-## Wireframes
-[Home] (https://wireframe.cc/vyeNvA)
-
-[How to Play] (https://wireframe.cc/pro/pp/e48fbb8ec282737)
-
-[Game] (https://wireframe.cc/pro/pp/03c880649282739)
