@@ -5,7 +5,7 @@ import Energy from './Energy';
 import Block from './Block'
 import DisplayBlocked from'./DisplayBlocked'
 import DisplayHurt from './DisplayHurt'
-import Buff from './buff'
+import Buff from './Buff'
 import Explosion from '../images/explosion.png'
 
 
