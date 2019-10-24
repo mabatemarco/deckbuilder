@@ -9,7 +9,7 @@ const HowToPlay = () => {
       <div className="instruction">
         <div className="topic">
           <h1>Combat</h1>
-          <p>You begin the game with 9 action cards, and can choose from 5 each turn.  Some will attack, some will add defense against your opponent, and some will heal you.  Play cards each turn until your energy is depleted, then brace for your opponent's turn.  Your energy will be restored to full on your next turn, and your defense will reset.</p>
+          <p>You begin the game with 9 action cards, and can choose from 5 each turn.  Some will attack, some will add defense against your opponent, and some will heal you.  When your energy is depleted, end your turn and brace for your opponent's attack.  Your energy will be restored to full on your next turn, and your defense will reset.</p>
         </div>
         <img id ="combat" src={SS1} alt=""/>
       </div>
