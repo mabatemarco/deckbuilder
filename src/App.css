@@ -12,11 +12,13 @@ header{
 }
 
 .links{
-  margin:0 5em 0 0;
+  margin:0 10% 0 0;
+  display:flex;
+  justify-content: space-between;
+  width:25%
 }
 
 a{
-  margin: 0 5em 0 0;
   font-size: 1.7em;
   text-decoration: none;
 }
@@ -26,7 +28,7 @@ a{
 }
 
 .title{
-  margin:0 0 0 2em;
+  margin:0 0 0 55%;
   font-size: 1.5em;
   color:red;
   font-family: 'Anton', sans-serif;
@@ -82,7 +84,7 @@ footer p{
 
 .about{
   width:30%;
-  margin:5em 18em 0 0;
+  margin:5% 20% 0 0;
 }
 
 .about p{

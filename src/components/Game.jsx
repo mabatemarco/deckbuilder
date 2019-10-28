@@ -171,7 +171,7 @@ class Game extends React.Component {
 
       if (e.currentTarget.dataset.buff === "true") {
         this.setState(prevState => ({
-          playerModifier: 1.3,
+          playerModifier: 1.5,
           buffDuration: prevState.buffDuration + 3
         }))
       }
