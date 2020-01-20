@@ -340,6 +340,7 @@ class Game extends React.Component {
   render() {
     return (
       <div className="game">
+        <h2>This game is designed to be played on a larger screen.  Your experience may be compromised</h2>
         <div className="gameWindow">
           <Hero
             buff={this.state.buffDuration}

@@ -7,7 +7,7 @@ header{
   justify-content: space-between;
   height:80px;
   line-height: 80px;
-  background-color: grey;
+  background-color: DarkGrey;
   margin:0;
 }
 
@@ -15,7 +15,10 @@ header{
   margin:0 10% 0 0;
   display:flex;
   justify-content: space-between;
-  width:25%
+}
+
+.links a{
+  margin:0 .8em
 }
 
 a{
@@ -28,7 +31,7 @@ a{
 }
 
 .title{
-  margin:0 0 0 55%;
+  margin:0 0 0 15%;
   font-size: 1.5em;
   color:red;
   font-family: 'Anton', sans-serif;
@@ -121,6 +124,12 @@ button{
 
 .topic p{
   font-size: 1.2em;
+}
+
+.game h2{
+  text-align: center;
+  color:red;
+  display:none;
 }
 
 .gameWindow{
@@ -570,3 +579,62 @@ progress{
   }
 }
 
+@media (max-width:1150px){
+  .home{
+    display:block;
+    text-align: center;
+  }
+
+  .home img{
+    height:300px;
+    width:100%;
+    object-fit: cover;
+    object-position: center -400px;
+  }
+
+  .home .about{
+    width:70%;
+    margin:0 auto;
+
+  }
+
+  .home .about button{
+    margin:.5em
+  }
+}
+
+@media (max-width:1000px){
+  .game h2{
+    display:block;
+  }
+}
+
+@media (max-width:750px){
+  .instruction{
+    display:block;
+    margin:0 auto;
+    text-align: center;
+    border-bottom: 2px solid black;;
+  }
+
+  .instruction img{
+    margin: 1em;
+    width:70%
+  }
+
+  .topic{
+    margin:1em auto;
+    width:65%;
+    border-bottom: none;
+  }
+}
+
+@media(max-width:550px){
+  .links{
+    display:none
+  }
+
+  .home img{
+    object-position: center top;
+  }
+}
