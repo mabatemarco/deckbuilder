@@ -126,10 +126,15 @@ button{
   font-size: 1.2em;
 }
 
-.game h2{
+.game{
+  overflow: scroll;
+}
+
+.game h4{
   text-align: center;
   color:red;
   display:none;
+  font-size: 2em;
 }
 
 .gameWindow{
@@ -604,7 +609,7 @@ progress{
 }
 
 @media (max-width:1000px){
-  .game h2{
+  .game h4{
     display:block;
   }
 }
